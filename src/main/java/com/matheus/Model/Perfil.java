@@ -11,14 +11,18 @@ public abstract class Perfil {
 
     public Perfil(String usuario) {
         this.usuario = usuario;
+        seguidos = new Vector<Perfil>();
+        seguidores = new Vector<Perfil>();
+        timeline = new Vector<Tweet>();
+        ativo = true;
     }
 
     public void addSeguido(Perfil usuario) {
-
+        seguidos.add(usuario);
     }
 
     public void addSeguidor(Perfil usuario) {
-
+        seguidores.add(usuario);
     }
 
     public void addTweet(Tweet tweet){

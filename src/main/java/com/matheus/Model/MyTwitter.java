@@ -51,7 +51,7 @@ public class MyTwitter implements ITwitter {
             repositorio.atualizar(perfil);
 
             // TODO: Analizar a semântica do nome seguido e seguidor
-            for (Perfil seguidor : perfil.getSeguidos()) {
+            for (Perfil seguidor : perfil.getSeguidores()) {
                 seguidor.addTweet(tweet);
                 repositorio.atualizar(seguidor);
             }
@@ -99,8 +99,11 @@ public class MyTwitter implements ITwitter {
         } else if (!perfilSeguidor.isAtivo()) {
             throw new PDException(seguidor);
         }else{
-            perfilSeguido.addSeguido(perfilSeguidor);
-            perfilSeguidor.addSeguidor(perfilSeguido);
+            perfilSeguido.addSeguidor(perfilSeguidor);
+            perfilSeguidor.addSeguido(perfilSeguido);
+
+            this.repositorio.atualizar(perfilSeguido);
+            this.repositorio.atualizar(perfilSeguidor);
         }
 
     }
@@ -108,6 +111,11 @@ public class MyTwitter implements ITwitter {
     @Override
     public int numeroSeguidores(String usuario) throws PDException, PIException {
         return seguidores(usuario).size();
+    }
+
+    @Override
+    public int numeroSeguidos(String usuario) throws PDException, PIException {
+        return seguidos(usuario).size();
     }
 
     @Override

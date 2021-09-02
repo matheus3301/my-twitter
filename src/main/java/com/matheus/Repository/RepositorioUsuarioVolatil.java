@@ -6,6 +6,11 @@ import java.util.Vector;
 
 public class RepositorioUsuarioVolatil implements IRepositorioUsuario{
     Vector<Perfil> usuarios;
+
+    public RepositorioUsuarioVolatil() {
+        usuarios = new Vector<Perfil>();
+    }
+
     @Override
     public void cadastrar(Perfil usuario) {
         usuarios.add(usuario);
@@ -26,6 +31,7 @@ public class RepositorioUsuarioVolatil implements IRepositorioUsuario{
             if(cadastrado.getUsuario().equals(usuario.getUsuario())){
                 usuarios.remove(cadastrado);
                 usuarios.add(usuario);
+                return;
             }
         }
     }
