@@ -43,7 +43,7 @@ public class jfPerfil extends javax.swing.JFrame {
             }
 
 
-            Vector<Tweet> timeline = twitter.timeline(usuarioPerfil);
+            Vector<Tweet> timeline = twitter.tweets(usuarioPerfil);
             ((DefaultTableModel)this.tbTweets.getModel()).setRowCount(0);
             for(int i = timeline.size() - 1; i >= 0; i--){
                 Tweet tweet = timeline.elementAt(i);

@@ -323,6 +323,10 @@ public class jfHome extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         String usuarioBuscado = JOptionPane.showInputDialog(null,"Digite o usuário que você quer olhar o perfil:","Buscar",JOptionPane.QUESTION_MESSAGE);
+        if(usuarioBuscado.equals(usuario)){
+            JOptionPane.showMessageDialog(null,"Usuário é você mesmo","Erro!",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if(usuarioBuscado != null){
             try {
                 twitter.tweets(usuarioBuscado);
