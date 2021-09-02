@@ -2,6 +2,7 @@ package com.matheus.Main;
 
 import com.matheus.Model.ITwitter;
 import com.matheus.Model.MyTwitter;
+import com.matheus.Repository.RepositorioUsuarioPersistente;
 import com.matheus.Repository.RepositorioUsuarioVolatil;
 import com.matheus.View.*;
 

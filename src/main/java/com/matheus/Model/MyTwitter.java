@@ -15,10 +15,11 @@ public class MyTwitter implements ITwitter {
 
     @Override
     public void criarPerfil(Perfil usuario) throws PEException {
-        if (repositorio.buscar(usuario.getUsuario()) != null)
-            throw new PEException(usuario.getUsuario());
-        else
+        try {
             repositorio.cadastrar(usuario);
+        } catch (UJCException e) {
+            throw new PEException(usuario.getUsuario());
+        }
     }
 
     @Override
@@ -30,7 +31,11 @@ public class MyTwitter implements ITwitter {
             throw new PDException(usuario);
         } else {
             perfil.setAtivo(false);
-            repositorio.atualizar(perfil);
+            try {
+                repositorio.atualizar(perfil);
+            } catch (UNCException e) {
+                throw new PIException(usuario);
+            }
         }
     }
 
@@ -48,12 +53,20 @@ public class MyTwitter implements ITwitter {
             tweet.setUsuario(usuario);
 
             perfil.addTweet(tweet);
-            repositorio.atualizar(perfil);
+            try {
+                repositorio.atualizar(perfil);
+            } catch (UNCException e) {
+                throw new PIException(usuario);
+            }
 
             // TODO: Analizar a semântica do nome seguido e seguidor
             for (Perfil seguidor : perfil.getSeguidores()) {
                 seguidor.addTweet(tweet);
-                repositorio.atualizar(seguidor);
+                try {
+                    repositorio.atualizar(seguidor);
+                } catch (UNCException e) {
+                    throw new PIException(usuario);
+                }
             }
 
         }
@@ -102,8 +115,16 @@ public class MyTwitter implements ITwitter {
             perfilSeguido.addSeguidor(perfilSeguidor);
             perfilSeguidor.addSeguido(perfilSeguido);
 
-            this.repositorio.atualizar(perfilSeguido);
-            this.repositorio.atualizar(perfilSeguidor);
+            try {
+                this.repositorio.atualizar(perfilSeguido);
+            } catch (UNCException e) {
+                throw new PIException(perfilSeguido.getUsuario());
+            }
+            try {
+                this.repositorio.atualizar(perfilSeguidor);
+            } catch (UNCException e) {
+                throw new PIException(perfilSeguidor.getUsuario());
+            }
         }
 
     }
